@@ -1,0 +1,14 @@
+Édition : Art_of_Innovations_-_innovations_book
+Dossier : editions/art-of-innovations-innovations-book/
+
+Valeurs à mettre dans le composant EditionBook (Framer) :
+  Nb de pages     54
+  Mise en page    Planches
+  Pages (URL)     https://lauriemalassenet.github.io/editions/editions/art-of-innovations-innovations-book/std/p-{nnn}.webp
+  Pages HD (URL)  https://lauriemalassenet.github.io/editions/editions/art-of-innovations-innovations-book/hd/p-{nnn}.webp
+  Ratio page      0.348
+  Taille conseillée du composant : 340 x 977 px
+
+Couverture et dos à télécharger puis uploader dans Framer :
+  https://lauriemalassenet.github.io/editions/editions/art-of-innovations-innovations-book/couverture.webp
+  https://lauriemalassenet.github.io/editions/editions/art-of-innovations-innovations-book/dos.webp
