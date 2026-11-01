@@ -1,0 +1,79 @@
+# Robot du site : à chaque envoi sur GitHub
+#  1. s'il y a des PDF dans a-convertir/, il les transforme en pages pour EditionBook
+#     (dossier editions/<nom-du-livre>/), puis retire le PDF du dossier
+#  2. il met le site en ligne sur https://lauriemalassenet.github.io/editions
+#
+# Réglage à faire une seule fois : Settings > Pages > Source : « GitHub Actions »
+
+name: Éditions et mise en ligne
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Chercher des PDF à convertir
+        id: find
+        run: |
+          shopt -s nullglob nocaseglob
+          files=(a-convertir/*.pdf)
+          echo "count=${#files[@]}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        if: steps.find.outputs.count != '0'
+        with:
+          python-version: "3.12"
+
+      - name: Convertir les PDF
+        if: steps.find.outputs.count != '0'
+        run: |
+          pip install pymupdf==1.24.10 pillow==10.4.0
+          shopt -s nullglob nocaseglob
+          for f in a-convertir/*.pdf; do
+            echo "::group::$f"
+            python scripts/build_edition.py "$f" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "::endgroup::"
+            git rm -q --cached "$f" || true
+            rm -f "$f"
+          done
+
+      - name: Enregistrer les pages dans le dépôt
+        if: steps.find.outputs.count != '0'
+        run: |
+          git config user.name "robot-editions"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A editions a-convertir
+          git commit -m "Éditions converties automatiquement" || echo "Rien à enregistrer"
+          git push
+
+      - name: Préparer le site
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude '_site' \
+                   --exclude 'a-convertir' --exclude 'scripts' ./ _site/
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
