@@ -1,0 +1,14 @@
+Édition : History of Formula - history book - web_compressed
+Dossier : editions/history-of-formula-history-book-web-compressed/
+
+Valeurs à mettre dans le composant EditionBook (Framer) :
+  Nb de pages     104
+  Mise en page    Planches
+  Pages (URL)     https://lauriemalassenet.github.io/editions/editions/history-of-formula-history-book-web-compressed/std/p-{nnn}.webp
+  Pages HD (URL)  https://lauriemalassenet.github.io/editions/editions/history-of-formula-history-book-web-compressed/hd/p-{nnn}.webp
+  Ratio page      0.774
+  Taille conseillée du composant : 340 x 439 px
+
+Couverture et dos à télécharger puis uploader dans Framer :
+  https://lauriemalassenet.github.io/editions/editions/history-of-formula-history-book-web-compressed/couverture.webp
+  https://lauriemalassenet.github.io/editions/editions/history-of-formula-history-book-web-compressed/dos.webp
