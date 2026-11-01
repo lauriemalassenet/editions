@@ -1,0 +1,14 @@
+Édition : Guide_pratique
+Dossier : editions/guide-pratique/
+
+Valeurs à mettre dans le composant EditionBook (Framer) :
+  Nb de pages     50
+  Mise en page    Planches
+  Pages (URL)     https://lauriemalassenet.github.io/editions/editions/guide-pratique/std/p-{nnn}.webp
+  Pages HD (URL)  https://lauriemalassenet.github.io/editions/editions/guide-pratique/hd/p-{nnn}.webp
+  Ratio page      0.611
+  Taille conseillée du composant : 340 x 556 px
+
+Couverture et dos à télécharger puis uploader dans Framer :
+  https://lauriemalassenet.github.io/editions/editions/guide-pratique/couverture.webp
+  https://lauriemalassenet.github.io/editions/editions/guide-pratique/dos.webp
